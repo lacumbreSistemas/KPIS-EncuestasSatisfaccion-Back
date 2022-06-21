@@ -64,6 +64,22 @@ namespace EncuestaApi.Controllers
         }
 
         [HttpGet]
+        [Route("api/encuesta/ObtenerPorcentajes/{sucursal}/{fechaInicio}/{fechaFinal}")]
+        public IHttpActionResult ObtenerPorcentaje(int sucursal, DateTime fechaInicio, DateTime fechaFinal)
+        {
+            var contadorPreguntas = EncuestaData.Database
+                .SqlQuery<Porcentajes>(@"select sum(cast(ed.Valoracion as money))/100 as Global,
+                                    DATEPART(ISO_WEEK, ed.Fecha) NumSemana
+                                    from encuesta_Detalle ed 
+                                    inner join preguntas p on ed.idPregunta = p.id where ed.Fecha between " + "'" + fechaInicio + "'" + " and " + "'" + fechaFinal + "'" + " and ed.Sucursal = " + sucursal + " group by DATEPART(ISO_WEEK, ed.Fecha)");
+
+            return Ok(contadorPreguntas);
+        }
+
+
+
+
+        [HttpGet]
         [Route("api/encuesta/ObtenerPuntaje/{sucursal}/{fechaInicio}/{fechaFinal}")]
         public IHttpActionResult ObtenerPuntaje(int sucursal, DateTime fechaInicio, DateTime fechaFinal)
         {

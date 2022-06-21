@@ -110,6 +110,7 @@
     <Compile Include="Models\EncuestaModel.cs" />
     <Compile Include="Models\encuesta_Detalle.cs" />
     <Compile Include="Models\encuesta_header.cs" />
+    <Compile Include="Models\Porcentajes.cs" />
     <Compile Include="Models\preguntas.cs" />
     <Compile Include="Models\Puntaje.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
